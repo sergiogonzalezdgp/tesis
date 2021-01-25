@@ -1,6 +1,12 @@
 # Learning Analytics con R studio 
 Este es la documentación del proceso de limpieza y visualización de un conjunto de datos extraídos de Moodle. El conjunto de datos fue obtenido en un lapso de 7 meses de las cuales existen fechas en que no se registraron ingresos al curso. Este conjunto de datos no presenta valores N/A. Los datos presentan datos de fecha, varialbles cualitativas (categorías) y númericas de Direción IP.
 
+## Procedimiento
+*[Preparación de los datos](#preparacion-de-los-datos)
+*[Limpieza de los datos](#limpieza-de-los-datos)
+*[Transformación de los datos](#transformacion-de-los-datos)
+*[Visualización de los datos](#visualizacion-de-los-datos)
+
 ## Preparación de los datos 
 El archivo "log_p.csv" fue pre-procesado en Microsoft Excel y fue exportado en .csv con codificación UTF-8. Se realizaron las siguientes acciones
 * Combinación de las variables de "Nombre.de.usuario.completo" y "Usuario.afectado"
