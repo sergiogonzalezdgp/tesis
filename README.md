@@ -11,13 +11,13 @@ El archivo "log_p.csv" fue pre-procesado en Microsoft Excel y fue exportado en .
 ## Limpieza de los datos
 Los datos fueron importados desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv) , tomando la primera fila como nombres de columna, usando una "," como separador y especificando codificación UTF-8. 
 
-##Transformación de los datos
+## Transformación de los datos
 Se cargaron las siguientes librerías
-'''
+```
 library(tidyverse)
 library(dplyr)
 library(lubridate)
-'''
+```
 ### Separación del conjunto de datos
 Posteriormente se creó un objeto que excluye las variables de "Dirección.IP", "Origen" y "Descripción" y fue almacenado en el objeto "log". También, se excluyeron aquellos registros realizados por el administrador, investigador y profesor de la asignatura para crear un segundo objeto llamado "estudiantes". 
 
