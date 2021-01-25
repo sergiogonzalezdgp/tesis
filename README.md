@@ -9,4 +9,4 @@ El archivo "log_p.csv" fue pre-procesado en Microsoft Excel y fue exportado en .
 * Anonimizado de los participantes
 
 ## Limpieza de los datos
-Los datos fueron importados desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv)
+Los datos fueron importados desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv) , tomando la primera fila como nombres de columna, usando una "," como separador y especificando codificación URF-8. 
