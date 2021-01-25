@@ -27,4 +27,4 @@ Foro4 <-	Foro: Temas de disertación
 Tarea	<- Tarea: Infografía
 Tarea2 <- Tarea: Neuromitos versión 2
 URL1	<- URL: Acceso al drive de la asignatura
-URL4	<- URL: VIdeo: Herramienta de escritura-Neuromitos
+URL4	<- URL: VIdeo: Herramienta de escritura-Neuromitos 
