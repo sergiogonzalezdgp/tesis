@@ -92,4 +92,57 @@ figura1 <- ggarrange(it_g, ut_g, ncol = 2, nrow = 1) + theme(plot.margin = unit(
 ```
 ![Figura1](img/figura1.jpeg)
 
+Por otra parte, se realiza el mismo procedimiento para generar otro gráfico, esta vez de barras ajustando un degradado según el mínimo y máximo de registros. También se integran en un mismo plot para su comparación.
+
 ```
+it_b <- ggplot(interacciones_cnt,aes(fecha, cnt, fill = cnt)) + geom_col() + 
+        scale_fill_gradient(low = "yellow", high = "red", na.value = NA) +
+        ylab("Usuarios totales") + xlab("")
+ut_b <- ggplot(usuarios_cnt,aes(fecha, cnt, fill = cnt)) + geom_col() + 
+        scale_fill_gradient(low = "yellow", high = "red", na.value = NA) +
+        ylab("Participantes") + xlab("")
+figura3 <- ggarrange(it_b, ut_b, ncol = 2, nrow = 1) +
+          labs(title = "Interacciones a través del tiempo") +
+          theme(plot.title = element_text(hjust = 0.5)) +
+          theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
+```
+
+![Figura1](img/Figura3.jpeg)
+
+En ambos gráficos se puede observar bajas en la cantidad de registros en los periodos comprendidos entre mayo y junio y otra baja en los meses de agosto. Por otra parte ambos gráficos muestran un máximo de interacciones en diferentes periodos del año. Con la función `summary()` se reportaron siguientes datos:
+```
+#Todos los usuarios
+
+fecha                 cnt        
+ Min.   :2020-04-05   Min.   :  1.00  
+ 1st Qu.:2020-05-09   1st Qu.:  4.00  
+ Median :2020-06-21   Median : 14.00  
+ Mean   :2020-06-21   Mean   : 27.66  
+ 3rd Qu.:2020-08-03   3rd Qu.: 37.00  
+ Max.   :2020-09-25   Max.   :202.00  
+```
+
+```
+#Estudiantes
+
+fecha                 cnt        
+ Min.   :2020-04-13   Min.   :  1.00  
+ 1st Qu.:2020-05-11   1st Qu.:  3.00  
+ Median :2020-06-22   Median :  6.00  
+ Mean   :2020-06-20   Mean   : 18.39  
+ 3rd Qu.:2020-08-02   3rd Qu.: 20.00  
+ Max.   :2020-09-23   Max.   :157.00  
+```
+
+En los gráficos anteriores aún es complejo comparar ambas frecuencias de acceso a causa de las diferentes escalas. Por lo tanto, se genera un tercer plot en el que se sobreponen ambas gráficas.
+```
+figura2 <- ggplot(int_join, aes(fecha)) +   
+  geom_area(aes(y = Total), color = "blue", alpha=0.5, fill = "blue", linetype = "blank") +
+  geom_area(aes(y = Participantes), color = "red", alpha=0.8, fill = "red", linetype = "blank") +
+  labs(title = "Comparación de usuarios totales y participantes")+
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Interacciones") + xlab("")+
+  theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
+figura2 
+```
+![Figura1](img/Figura2.jpeg)
