@@ -53,6 +53,8 @@ usuarios_cnt$fecha <- as.Date(usuarios_cnt$fecha, format="%Y-%m-%d")
 
 #Combinar interacciones totales y usuarios
 int_join <- interacciones_cnt %>% left_join(usuarios_cnt, by = "fecha")
+int_join <- rename(int_join, Total = cnt.x)
+int_join <- rename(int_join, Participantes = cnt.y)
 int_join[is.na(int_join)] <- 0
 
 #Tabla de contingencia USUARIO-COMPONENTE
