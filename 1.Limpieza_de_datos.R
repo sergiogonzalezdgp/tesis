@@ -9,7 +9,7 @@ dscompleto <- read.csv("/Users/hablandosolo/Documents/Learning Analytics/tesis/l
 log <- dscompleto
 log <- rename(log, Fecha = Hora)
 log <- select(log, -Descripción, -Origen, -Dirección.IP)
-log <-  filter(log, Contexto.del.evento != "189.148.203.31") 
+log <- filter(log, Contexto.del.evento != "189.148.203.31") 
 log <- filter(log, Nombre.completo.del.usuario != "-")
 
 #Convirtiendo columna Hora a Fecha
@@ -31,19 +31,6 @@ interacciones_cnt <- as.data.frame(interacciones_cnt)
 interacciones_cnt <- rename(interacciones_cnt, fecha = Var1, cnt = Freq)
 interacciones_cnt$fecha <- as.Date(interacciones_cnt$fecha, format="%Y-%m-%d")
 
-#Recuento de componentes
-#componentes_cnt <- table(unlist(log$Componente))
-#componentes_cnt <- as.data.frame(componentes_cnt)
-#componentes_cnt$Var1 <- as.character(componentes_cnt$Var1)
-#componentes_cnt <- rename(componentes_cnt, componente = Var1, cnt = Freq)
-#componentes_cnt = componentes_cnt[-1,]
-
-#Recuento de eventos
-#eventos_cnt <- table(unlist(log$Contexto.del.evento))
-#eventos_cnt <- as.data.frame(eventos_cnt)
-#eventos_cnt$Var1 <- as.character(eventos_cnt$Var1)
-#eventos_cnt <- rename(eventos_cnt, evento = Var1, cnt = Freq)
-
 #Recuento de usuarios
 usuarios_cnt <- table(unlist(estudiantes$Fecha))
 usuarios_cnt <- as.data.frame(usuarios_cnt)
@@ -61,10 +48,11 @@ int_join[is.na(int_join)] <- 0
 UC <- table(estudiantes$Nombre.completo.del.usuario, estudiantes$Componente)
 UCE <-  table(estudiantes$Nombre.completo.del.usuario, estudiantes$Contexto.del.evento)
 
-tabla_nombre_componente <- ftable(log$Nombre.completo.del.usuario, log$Componente)
+#Extracción de último mes de clases
+ago.sep <- filter(usuarios_cnt, usuarios_cnt$fecha >= "2020/08/01" & usuarios_cnt$fecha <= "2020/09/02")
+ago.sep <- ago.sep %>% complete(fecha = seq.Date(min(fecha), max(fecha), by="day")) 
+ago.sep[is.na(ago.sep)] <- 0
 
-#Tabla de contingencia usuarios y fecha
-contingencia_usuario_fecha <- table(log$Fecha, log$Nombre.completo.del.usuario)
 
 ###--------NO CORRER-------##### 
 ##TABLA DE CONTEXTO DEL EVENTO ##

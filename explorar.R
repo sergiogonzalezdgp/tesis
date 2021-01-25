@@ -8,10 +8,10 @@ source("/Users/hablandosolo/Documents/Learning Analytics/tesis/1.Limpieza_de_dat
 library(ggpubr)
 it_g <- ggplot(interacciones_cnt, aes(fecha, cnt)) + geom_line() + scale_x_date('Mes') +
         ylab("Interacciones") + xlab("") + labs(title="Conteo todos los usuarios") +
-        theme(plot.title = element_text(hjust = 0.5))
+        theme(plot.title = element_text(hjust = 0.5)) +geom_smooth(method = "lm")
 ut_g <- ggplot(usuarios_cnt, aes(fecha, cnt)) + geom_line() + scale_x_date('Mes')  + 
         ylab("Interacciones") + xlab("") + labs(title="Conteo Estudiantes") +
-        theme(plot.title = element_text(hjust = 0.5))
+        theme(plot.title = element_text(hjust = 0.5))+geom_smooth(method = "lm")
 figura1 <- ggarrange(it_g, ut_g, ncol = 2, nrow = 1) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
 
 #Comparar conteos lineales 
@@ -36,6 +36,11 @@ figura3 <- ggarrange(it_b, ut_b, ncol = 2, nrow = 1) +
           labs(title = "Interacciones a través del tiempo") +
           theme(plot.title = element_text(hjust = 0.5)) +
           theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
+
+#Último mes de clases
+ultimomes <- ggplot(ago.sep, aes(fecha, cnt)) + geom_line() + scale_x_date('Mes') +
+  ylab("Interacciones") + xlab("") + labs(title="Último mes de clases") +
+  theme(plot.title = element_text(hjust = 0.5))
 
 #Gráfico de densidad uso de componentes
 figura4 <- ggplot(estudiantes, aes(Fecha)) +

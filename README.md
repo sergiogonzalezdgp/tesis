@@ -145,4 +145,22 @@ figura2 <- ggplot(int_join, aes(fecha)) +
   theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
 figura2 
 ```
+En color azul se encuentra graficado los registros totales mientras que en color rojo se sobreponen los datos de los estudiantes. Uno de los elementos que sobresalen en este gráfico es la cantidad de usuarios que estaban presentes en plataforma durante el último mes de clases, lo que se mantuvo al excluir al administrador, profesor e investigador. También se observa en el resto del gráfico que durante los meses anteriores a agosto, existen más cantidad registros a causa de la administración, el profesor e investigador. Por otra parte, durante el primer mes hay registros sólo de la administración, profesor e investigador.
 ![Figura1](img/Figura2.jpeg)
+
+Para obtener una imagen más detallada de este periodo se extraen los datos entre el 02 de agosto y 02 de septiembre y se almacena en el objeto `ago.sep`. Se reemplazan las fechas faltantes entre estas fechas y se reemplazan por cero y posteriormente se grafica.
+```
+ago.sep <- filter(usuarios_cnt, usuarios_cnt$fecha >= "2020/08/01" & usuarios_cnt$fecha <= "2020/09/02")
+ago.sep <- ago.sep %>% complete(fecha = seq.Date(min(fecha), max(fecha), by="day")) 
+ago.sep[is.na(ago.sep)] <- 0
+ultimomes <- ggplot(ago.sep, aes(fecha, cnt)) + geom_line() + scale_x_date('Mes') +
+  ylab("Interacciones") + xlab("") + labs(title="Último mes de clases") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+![Figura1](img/Figura5.jpeg)
+
+Del total de registros de estudiantes `1748` se calculó la cantidad de usuarios del último mes con la función `sum`.
+```
+> sum(ago.sep$cnt)
+[1] 501
+```
