@@ -1,3 +1,5 @@
+Contexto del evento con el nombre completo.
+
 Archivo1 	<- 	Archivo: ¿Qué aporta la neuroeducación al educador?
 Archivo2 	<-	Archivo: Clase (Particularidades de los seres humanos)
 Archivo3 	<-	Archivo: Clase Presencial (Fuego y Cerebro)
