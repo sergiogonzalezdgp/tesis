@@ -7,3 +7,6 @@ El archivo "log_p.csv" fue pre-procesado en Microsoft Excel y fue exportado en .
 * La variable "Contexto.del.evento" fue modificado para reducir la extensión de los nombres de cada categoría y se encuentra en el archivo readme/Contexto_del_evento.txt 
 * Conversión de la variable "Hora" a formato fecha
 * Anonimizado de los participantes
+
+## Limpieza de los datos
+Los datos fueron importados desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv)
