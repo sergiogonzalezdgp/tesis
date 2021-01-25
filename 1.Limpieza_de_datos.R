@@ -66,7 +66,8 @@ tabla_nombre_componente <- ftable(log$Nombre.completo.del.usuario, log$Component
 #Tabla de contingencia usuarios y fecha
 contingencia_usuario_fecha <- table(log$Fecha, log$Nombre.completo.del.usuario)
 
-## TABLA DE CONTEXTO DEL EVENTO
+###--------NO CORRER-------##### 
+##TABLA DE CONTEXTO DEL EVENTO ##
 library(readxl)
 t_contexto <- read_excel("log_limp2.xlsx")
 View(t_contexto)
