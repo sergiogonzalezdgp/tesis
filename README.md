@@ -83,7 +83,7 @@ ut_g <- ggplot(usuarios_cnt, aes(fecha, cnt)) + geom_line() + scale_x_date('Mes'
         ylab("Interacciones") + xlab("") + labs(title="Conteo Estudiantes") +
         theme(plot.title = element_text(hjust = 0.5))
 figura1 <- ggarrange(it_g, ut_g, ncol = 2, nrow = 1) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm"))
-
+```
 ![Figura1](img/figura1.jpeg)
 
 ```
