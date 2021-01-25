@@ -9,4 +9,24 @@ El archivo "log_p.csv" fue pre-procesado en Microsoft Excel y fue exportado en .
 * Anonimizado de los participantes
 
 ## Limpieza de los datos
-Los datos fueron importados desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv) , tomando la primera fila como nombres de columna, usando una "," como separador y especificando codificación URF-8. 
+Los datos fueron importados desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv) , tomando la primera fila como nombres de columna, usando una "," como separador y especificando codificación UTF-8. 
+
+##Transformación de los datos
+Se cargaron las siguientes librerías
+'''
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+'''
+### Separación del conjunto de datos
+Posteriormente se creó un objeto que excluye las variables de "Dirección.IP", "Origen" y "Descripción" y fue almacenado en el objeto "log". También, se excluyeron aquellos registros realizados por el administrador, investigador y profesor de la asignatura para crear un segundo objeto llamado "estudiantes". 
+
+### Tablas de frecuencia
+Se generaron dos objetos para el conteo total de registros "interacciones_cnt" y el conteo total de los estudiantes "usuarios_cnt". Ambos fueron transformados a tablas de frecuencia a partir de las fechas en que se generaron los registros en plataforma.
+
+### Componentes y Contexto del evento
+Para obtener una comparativa de las frecuencias de usuarios totales y estudiantes se combinaron las tablas de frecuencias para crear un nuevo objeto llamado "int_join".
+
+###
+
+##Visualización de los datos
