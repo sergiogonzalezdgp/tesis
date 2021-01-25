@@ -1,5 +1,5 @@
 ############################################
-######### EXPLORAR DATOS ###################
+####-----------EXPLORAR DATOS----------#####
 ############################################
 
 source("/Users/hablandosolo/Documents/Learning Analytics/tesis/1.Limpieza_de_datos.R")
@@ -39,12 +39,12 @@ figura3 <- ggarrange(it_b, ut_b, ncol = 2, nrow = 1) +
 
 #Gráfico de densidad uso de componentes
 figura4 <- ggplot(estudiantes, aes(Fecha)) +
-  geom_density(aes(fill=factor(Componente)), alpha=0.8, linetype = "blank") + 
-  labs(title="Gráfico de densidad", 
-       subtitle="Uso de componentes estudiantes",
-       x="Meses", y= "Densidad",
-       fill="Componentes") +
-  theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5)) 
+      geom_density(aes(fill=factor(Componente)), alpha=0.8, linetype = "blank") + 
+      labs(title="Gráfico de densidad", 
+      subtitle="Uso de componentes estudiantes",
+      x="Meses", y= "Densidad",
+      fill="Componentes") +
+      theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), plot.margin = unit(c(1, 1, 1, 1), "cm")) 
 
 #Mapa de calor contingencia USUARIO-COMPONENTES
 yellow <- colorRampPalette(c("yellow", "deeppink3")) #Creando colores
