@@ -67,4 +67,6 @@ usuarios_cnt <- usuarios_cnt[order(usuarios_cnt$cnt), ]
 dotchart(usuarios_cnt$cnt, labels=row.names(usuarios_cnt), 
          cex=0.6, xlab="cnt")
 
-
+#Matriz correlación componentes
+pairs(~Archivos enviados+Carpeta+Chat+Cuestionario+Foro+H5P+Recurso+Sistema+Tarea+URL+Usuario, data = states, 
+      main ="Scatter plot matrix generated with pairs()")
