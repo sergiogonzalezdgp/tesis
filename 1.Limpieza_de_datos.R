@@ -46,11 +46,6 @@ int_join[is.na(int_join)] <- 0
 
 #Tabla de contingencia USUARIO-COMPONENTE
 UC <- table(estudiantes$Nombre.completo.del.usuario, estudiantes$Componente)
-fisher.test(UC, simulate.p.value=TRUE, B=2e3)
-chisq.test(UC, simulate.p.value = T)
-prop.table(UC) #proporción de ocurrencias
-mosaicplot(UC, color=TRUE, main="Test de independencia", las = 1,  dir ="V", border = NA) ## shade=TRUE standarized residuals
-
 UCE <-  table(estudiantes$Nombre.completo.del.usuario, estudiantes$Contexto.del.evento)
 
 #Extracción de último mes de clases
@@ -58,16 +53,6 @@ ago.sep <- filter(usuarios_cnt, usuarios_cnt$fecha >= "2020/08/01" & usuarios_cn
 ago.sep <- ago.sep %>% complete(fecha = seq.Date(min(fecha), max(fecha), by="day")) 
 ago.sep[is.na(ago.sep)] <- 0
 
-#Kmeans estudiantes y componentes
-matriz.est <- as.data.frame.matrix(UC)
-escalado = as.matrix(scale(matriz.est)) #Escalar
-cluster_3 <- kmeans(escalado,3,nstart = 50,iter.max = 15)
-
-#Cluster'
-cluster <- estudiantes 
-cluster <- select(es_bol , Nombre.completo.del.usuario, Componente)
-
-ggplot(cluster, aes(Nombre.completo.del.usuario, Componente, col=Nombre.completo.del.usuario)) + geom_point() + ggtitle("Componentes scatter plot")
 
 ###--------NO CORRER-------##### 
 ##TABLA DE CONTEXTO DEL EVENTO ##
