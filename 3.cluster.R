@@ -33,6 +33,29 @@ fviz_cluster(cl_3, data = UC_escalado,
              main = "Partitioning Clustering Plot"
 ) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
 
+#CLUSTER2
+UC_escalado2 = as.data.frame.matrix(scale(UCE)) #Escalar
+UC_escalado2
+set.seed(123)
+fviz_nbclust(UC_escalado2, kmeans, method = "gap_stat")
+cl2_2 <- kmeans(UC_escalado2,2,nstart = 50, iter.max = 15)
+fviz_cluster(cl2_2, data = UC_escalado2,
+             palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+             ggtheme = theme_minimal(),
+             main = "Partitioning Clustering Plot"
+) +theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+#UC_gir
+UC_escalado3 = as.data.frame.matrix(scale(UC_gir)) #Escalar
+UC_escalado3
+set.seed(123)
+cl3_2 <- kmeans(UC_escalado3,2,nstart = 50, iter.max = 15)
+fviz_cluster(cl3_2, data = UC_escalado3,
+             palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+             ggtheme = theme_minimal(),
+             main = "Partitioning Clustering Plot"
+) +theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
 
 #Análisis de correspondencia
 library(FactoMineR)
