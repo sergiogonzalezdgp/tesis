@@ -2,15 +2,20 @@
 Este es la documentación del proceso de limpieza y visualización de un conjunto de datos extraídos de Moodle. El conjunto de datos fue obtenido en un lapso de 7 meses de las cuales existen fechas en que no se registraron ingresos al curso. Este conjunto de datos no presenta valores N/A. Los datos presentan datos de fecha, variables cualitativas (categorías) y númericas de Direción IP.
 
 ## Procedimiento
-* [Comprensión del dominio de la aplicación](#comprensión-del-dominio-de-la-aplicación)
-* [Creación del conjunto de datos](#Creación-del-conjunto-de-datos)
-* [Limpieza y Pre procesamiento](#limpieza-y-pre-procesamiento)
-* [Reducción de datos](#reducción-de-datos)
-* [Transformación de los datos](#transformación-de-los-datos)
-* [Visualización de los datos](#visualización-de-los-datos)
+* [1.Comprensión del dominio de la aplicación](#1.comprensión-del-dominio-de-la-aplicación)
+* [2.Creación del conjunto de datos](#Creación-del-conjunto-de-datos)
+* [Limpieza y Pre procesamiento](#2.limpieza-y-pre-procesamiento)
+* [3.Reducción de datos](#3.reducción-de-datos)
+* [4.Transformación de los datos](#4.transformación-de-los-datos)
+* [5.Tarea de minería de datos](#5.tarea-de-minería-de-datos)
+* [6.Algoritmo de minería de datos](#6.algoritmo-de-minería-de-datos)
+* [7.Minería de datos](#7.minería-de-datos)
+* [98Interpretación de patrones](#8.interpretación-de-patrones)
+* [9.Consolidación del conocimiento](#9.consolidación-del-conocimiento)
+* [## Referencias](#referencias)
 
 ## Comprensión del dominio de la aplicación, del conocimiento relevante y de los objetivos del usuario final
-El conjunto de datos utilizado contiene un total de 3240 observaciones y 8 variables. Estos corresponden a los registros almacenados por la plataforma Moodle de un curso conformado por 12 estudiantes, el administrador de la plataforma, un profesor y un investigador. El curso pertenece a una universidad del sur de Chile de una carrera de pregrado y fueron capturados entre los meses de abril y agosto del año 2020 en un contexto de aislamiento social y por lo tanto, en una modalidad de clases a distancia con el uso de Learning Managment System (LMS).
+El conjunto de datos utilizado contiene un total de 3240 observaciones y 8 variables. Estos corresponden a los registros almacenados por la plataforma Moodle de un curso conformado por 12 estudiantes, el administrador de la plataforma, un profesor y un investigador. El curso pertenece a una universidad del sur de Chile de una carrera de pregrado y fueron capturados entre los meses de abril y agosto del año 2020 en un contexto de aislamiento social y por lo tanto, en una modalidad de clases a distancia con el uso de Learning Managment System (LMS). Se busca identificar grupos relevantes que describan comportamientos de uso de la plataforma institucional como evidencias de las experiencias de aprendizaje en línea de los estudiantes.
 
 ### Variables registradas
 * Fecha
@@ -23,7 +28,7 @@ El conjunto de datos utilizado contiene un total de 3240 observaciones y 8 varia
 * Dirección.IP
 
 ## Creación del conjunto de datos
-La creación del conjunto de datos fue realizada mediante la descarga directa de la plataforma institucional basada en Moodle. Desde su interfaz predeterminada se filtró el curso del periodo antes mencionado y se generó un archivo en formato Comma Separated Values `.csv`. El archivo `log_p.csv` fue pre-procesado en Microsoft Excel y fue exportado en .csv con codificación UTF-8. 
+La creación del conjunto de datos fue realizada mediante la descarga directa de la plataforma institucional basada en Moodle. Desde su interfaz predeterminada se filtró el curso del periodo antes mencionado y se generó un archivo en formato Comma Separated Values `.csv`. El archivo `log_p.csv` fue pre-procesado en Microsoft Excel y fue exportado en .csv con codificación UTF-8.
 
 ## Limpieza y Pre procesamiento 
 Para la limpieza y pre procesamiento de los datos se llevaron a cabo las siguientes acciones.
@@ -36,14 +41,14 @@ Para la limpieza y pre procesamiento de los datos se llevaron a cabo las siguien
 ## Reducción de datos
 Los datos fueron importados a RStudio desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv) , tomando la primera fila como nombres de columna, usando una "," como separador y especificando codificación UTF-8 y fue almacenado en el objeto `dscompleto`. 
 
-## Transformación de los datos
+### Transformación de los datos
 Se utilizaron las siguientes librerías para la transformación de los datos.
 ```
 library(tidyverse)
 library(dplyr)
 library(lubridate)
 ```
-## Separación del conjunto de datos
+### Separación del conjunto de datos
 Posteriormente se creó un objeto que excluye las variables de "Dirección.IP", "Origen" y "Descripción" y fue almacenado en el objeto `log`. La columna hora fue transformado a formato fecha.
 ```
 log <- dscompleto
@@ -93,7 +98,6 @@ UC <- table(estudiantes$Nombre.completo.del.usuario, estudiantes$Componente)
 UCE <-  table(estudiantes$Nombre.completo.del.usuario, estudiantes$Contexto.del.evento)
 ```
 ## Visualización de los datos
-### Carga de librerías
 Se carga la librería ggpubr para visualizar diferentes gráficos en un mismo plot. Se utiliza además `ggplot2` que ya ha sido cargado anteriormente con las librerías anteriores.
 ```
 library(ggpubr)
@@ -128,7 +132,7 @@ figura3 <- ggarrange(it_b, ut_b, ncol = 2, nrow = 1) +
 
 ![Figura1](img/Figura3.jpeg)
 
-En ambos gráficos se puede observar bajas en la cantidad de registros en los periodos comprendidos entre mayo y junio y otra baja en los meses de agosto. Por otra parte ambos gráficos muestran un máximo de interacciones en diferentes periodos del año. Con la función `summary()` se reportaron siguientes datos:
+En ambos gráficos se puede observar bajas en la cantidad de registros en los periodos comprendidos entre mayo y junio y otra baja en los meses de agosto. Por otra parte, ambos gráficos muestran un máximo de interacciones en diferentes periodos del año. Con la función `summary()` se reportaron siguientes datos:
 ```
 #Todos los usuarios
 
@@ -183,3 +187,28 @@ Del total de registros de estudiantes `1748` se calculó la cantidad de usuarios
 > sum(ago.sep$cnt)
 [1] 501
 ```
+## Tarea de minería de datos
+Se decide utilizar una tarea de agrupamiento que corresponde a las tareas de tipo descriptiva. La literatura también la describe como un método de análisis multivariante para la representación de relaciones. El agrupamiento tiene como objetivo encontrar grupos o conjuntos de elementos que entre sí sean similares (Hernández et al., 2010). Esto quiere decir que se busca que los elementos que pertenen a un grupo tengan un grado alto de similitud entre sí. En algunos casos se pueden determinar el número de grupos que se desea encontrar y en otros casos esto se puede determinar mediante un algoritmo de agrupamiento según las características de los datos (Hernández et al., 2010).
+
+## Algoritmo de minería de datos
+El algoritmo utilizado fue el K medias, que es un método de agrupamiento por vecindad, en que los datos con características similares se ubican en el espacio mediante sus centros o prototipos (Hernández et al., 2010). K medias opera directamente en una matriz de datos en busca de similitudes, y necesita un conjunto de posiciones tentativas alrededor de las cuales organizar grupos para el ajuste posterior. El algoritmo realiza los siguientes pasos:
+* Fijar el número de cluster igual o mayor a 2
+* Calcula los centroides de cada cluster
+* Asigna sus puntos mas cercanos al centroide
+* Recalcula la posición del centroide y repite
+
+Para determinar la cantidad de cluster se utilizó la técnica del codo representada por la función `fviz_nbclust` del paquete FactoMineR.
+
+
+## Minería de datos
+
+## Interpretación de patrones
+
+## Consolidación del conocimiento
+
+
+## Referencias
+* Hernández Orallo, J., Ramírez Quintana, M. J., & Ferri Ramírez, C. (2010). Introducción a la minería de datos. Pearson.
+* W.L. Myers and G.P. Patil, Multivariate Methods of Representing Relations 13
+in R for Prioritization Purposes, Environmental and Ecological Statistics 6,
+DOI 10.1007/978-1-4614-3122-0_2, © Springer Science+Business Media, LLC 2012
