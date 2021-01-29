@@ -191,7 +191,11 @@ Se decide utilizar una tarea de agrupamiento que corresponde a las tareas de tip
 
 ## Algoritmo de minería de datos
 El algoritmo utilizado fue el K medias, que es un método de agrupamiento por vecindad, en que los datos con características similares se ubican en el espacio mediante sus centros o prototipos (Hernández et al., 2010). K medias opera directamente en una matriz de datos en busca de similitudes, y necesita un conjunto de posiciones tentativas alrededor de las cuales organizar grupos para el ajuste posterior. 
+
+
 ![Algoritmo K-means](img/kmean.svg)
+
+
 El algoritmo realiza los siguientes pasos:
 * Fijar el número de cluster igual o mayor a 2
 * Calcula los centroides de cada cluster
