@@ -22,7 +22,7 @@ El conjunto de datos utilizado contiene un total de 3240 observaciones y 8 varia
 * Origen
 * Dirección.IP
 
-##Creación del conjunto de datos
+## Creación del conjunto de datos
 La creación del conjunto de datos fue realizada mediante la descarga directa de la plataforma institucional basada en Moodle. Desde su interfaz predeterminada se filtró el curso del periodo antes mencionado y se generó un archivo en formato Comma Separated Values `.csv`. El archivo `log_p.csv` fue pre-procesado en Microsoft Excel y fue exportado en .csv con codificación UTF-8. 
 
 ## Limpieza y Pre procesamiento 
