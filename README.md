@@ -1,30 +1,49 @@
 # Learning Analytics con R studio 
-Este es la documentación del proceso de limpieza y visualización de un conjunto de datos extraídos de Moodle. El conjunto de datos fue obtenido en un lapso de 7 meses de las cuales existen fechas en que no se registraron ingresos al curso. Este conjunto de datos no presenta valores N/A. Los datos presentan datos de fecha, varialbles cualitativas (categorías) y númericas de Direción IP.
+Este es la documentación del proceso de limpieza y visualización de un conjunto de datos extraídos de Moodle. El conjunto de datos fue obtenido en un lapso de 7 meses de las cuales existen fechas en que no se registraron ingresos al curso. Este conjunto de datos no presenta valores N/A. Los datos presentan datos de fecha, variables cualitativas (categorías) y númericas de Direción IP.
 
 ## Procedimiento
-* [Preparación de los datos](#preparación-de-los-datos)
-* [Limpieza de los datos](#limpieza-de-los-datos)
+* [Comprensión del dominio de la aplicación](#comprensión-del-dominio-de-la-aplicación)
+* [Creación del conjunto de datos](#Creación-del-conjunto-de-datos)
+* [Limpieza y Pre procesamiento](#limpieza-y-pre-procesamiento)
+* [Reducción de datos](#reducción-de-datos)
 * [Transformación de los datos](#transformación-de-los-datos)
 * [Visualización de los datos](#visualización-de-los-datos)
 
-## Preparación de los datos 
-El archivo "log_p.csv" fue pre-procesado en Microsoft Excel y fue exportado en .csv con codificación UTF-8. Se realizaron las siguientes acciones
+## Comprensión del dominio de la aplicación, del conocimiento relevante y de los objetivos del usuario final
+El conjunto de datos utilizado contiene un total de 3240 observaciones y 8 variables. Estos corresponden a los registros almacenados por la plataforma Moodle de un curso conformado por 12 estudiantes, el administrador de la plataforma, un profesor y un investigador. El curso pertenece a una universidad del sur de Chile de una carrera de pregrado y fueron capturados entre los meses de abril y agosto del año 2020 en un contexto de aislamiento social y por lo tanto, en una modalidad de clases a distancia con el uso de Learning Managment System (LMS).
+
+### Variables registradas
+* Fecha
+* Nombre.del.usuario.completo
+* Contexto.del.evento
+* Componente
+* Nombre.evento
+* Descripción
+* Origen
+* Dirección.IP
+
+##Creación del conjunto de datos
+La creación del conjunto de datos fue realizada mediante la descarga directa de la plataforma institucional basada en Moodle. Desde su interfaz predeterminada se filtró el curso del periodo antes mencionado y se generó un archivo en formato Comma Separated Values `.csv`. El archivo `log_p.csv` fue pre-procesado en Microsoft Excel y fue exportado en .csv con codificación UTF-8. 
+
+## Limpieza y Pre procesamiento 
+Para la limpieza y pre procesamiento de los datos se llevaron a cabo las siguientes acciones.
 * Combinación de las variables de "Nombre.de.usuario.completo" y "Usuario.afectado"
 * La variable "Contexto.del.evento" fue modificado para reducir la extensión de los nombres de cada categoría y se encuentra en el archivo readme/Contexto_del_evento.txt 
 * Conversión de la variable "Hora" a formato fecha
 * Anonimizado de los participantes
+* Codificación de la variable Componentes
 
-## Limpieza de los datos
-Los datos fueron importados desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv) , tomando la primera fila como nombres de columna, usando una "," como separador y especificando codificación UTF-8 y fue almacenado en el objeto `dscompleto`.
+## Reducción de datos
+Los datos fueron importados a RStudio desde el archivo [log_p.csv](https://github.com/sergiogonzalezdgp/tesis/log_p.csv) , tomando la primera fila como nombres de columna, usando una "," como separador y especificando codificación UTF-8 y fue almacenado en el objeto `dscompleto`. 
 
 ## Transformación de los datos
-Se cargaron las siguientes librerías
+Se utilizaron las siguientes librerías para la transformación de los datos.
 ```
 library(tidyverse)
 library(dplyr)
 library(lubridate)
 ```
-### Separación del conjunto de datos
+## Separación del conjunto de datos
 Posteriormente se creó un objeto que excluye las variables de "Dirección.IP", "Origen" y "Descripción" y fue almacenado en el objeto `log`. La columna hora fue transformado a formato fecha.
 ```
 log <- dscompleto
@@ -68,7 +87,7 @@ int_join[is.na(int_join)] <- 0
 ```
 ### Tabla de contingencia
 Para poder observar los componentes más utilizados de la plataforma se construye una tabla de contingencia con el recuento de estudiantes que accedieron a los diferentes componentes del sistema y contextos de los eventos.
-
+ 
 ```
 UC <- table(estudiantes$Nombre.completo.del.usuario, estudiantes$Componente)
 UCE <-  table(estudiantes$Nombre.completo.del.usuario, estudiantes$Contexto.del.evento)
