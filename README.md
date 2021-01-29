@@ -6,7 +6,6 @@ Este es la documentación del proceso de limpieza y visualización de un conjunt
 * [Creación del conjunto de datos](#Creación-del-conjunto-de-datos)
 * [Limpieza y Pre procesamiento](#limpieza-y-pre-procesamiento)
 * [Reducción de datos](#reducción-de-datos)
-* [Transformación de los datos](#transformación-de-los-datos)
 * [Tarea de minería de datos](#tarea-de-minería-de-datos)
 * [Algoritmo de minería de datos](#algoritmo-de-minería-de-datos)
 * [Minería de datos](#minería-de-datos)
@@ -191,7 +190,9 @@ Del total de registros de estudiantes `1748` se calculó la cantidad de usuarios
 Se decide utilizar una tarea de agrupamiento que corresponde a las tareas de tipo descriptiva. La literatura también la describe como un método de análisis multivariante para la representación de relaciones. El agrupamiento tiene como objetivo encontrar grupos o conjuntos de elementos que entre sí sean similares (Hernández et al., 2010). Esto quiere decir que se busca que los elementos que pertenen a un grupo tengan un grado alto de similitud entre sí. En algunos casos se pueden determinar el número de grupos que se desea encontrar y en otros casos esto se puede determinar mediante un algoritmo de agrupamiento según las características de los datos (Hernández et al., 2010).
 
 ## Algoritmo de minería de datos
-El algoritmo utilizado fue el K medias, que es un método de agrupamiento por vecindad, en que los datos con características similares se ubican en el espacio mediante sus centros o prototipos (Hernández et al., 2010). K medias opera directamente en una matriz de datos en busca de similitudes, y necesita un conjunto de posiciones tentativas alrededor de las cuales organizar grupos para el ajuste posterior. El algoritmo realiza los siguientes pasos:
+El algoritmo utilizado fue el K medias, que es un método de agrupamiento por vecindad, en que los datos con características similares se ubican en el espacio mediante sus centros o prototipos (Hernández et al., 2010). K medias opera directamente en una matriz de datos en busca de similitudes, y necesita un conjunto de posiciones tentativas alrededor de las cuales organizar grupos para el ajuste posterior. 
+![Algoritmo K-means](img/kmean.svg)
+El algoritmo realiza los siguientes pasos:
 * Fijar el número de cluster igual o mayor a 2
 * Calcula los centroides de cada cluster
 * Asigna sus puntos mas cercanos al centroide
