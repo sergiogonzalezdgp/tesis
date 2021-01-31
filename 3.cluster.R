@@ -8,15 +8,9 @@ chisq.test(UC, simulate.p.value = T)
 prop.table(UC) #proporción de ocurrencias
 mosaicplot(UC, color=TRUE, main="Test de independencia", las = 1,  dir ="V", border = NA) ## shade=TRUE standarized residuals
 
-#Kmeans estudiantes y componentes
-UC_matriz <- UC
-UC_matriz <- as.data.frame.matrix(UC_matriz)
-UC_matriz = as.data.frame(scale(UC)) #Escalar
-cluster_4 <- kmeans(escalado,4,nstart = 50, iter.max = 15)
-cluster_3 <- kmeans(escalado,3,nstart = 50, iter.max = 15)
-cluster_2 <- kmeans(escalado,2,nstart = 50, iter.max = 15)
 
 #Cluster y contexto del evento
+UCE_escalado <- UCE
 UCE_escalado = as.data.frame.matrix(scale(UCE)) #Escalar
 UCE_escalado
 
@@ -72,31 +66,31 @@ library(gplots)
 UCE_girado <- t(UCE)
 balloonplot(t(UCE_girado), main ="Contexto", xlab ="", ylab="", label = FALSE, show.margins = FALSE) #Frecuencias
 
-UCE_escalado = as.data.frame.matrix(scale(UCE_girado)) #Escalar
+UCE_girado = as.data.frame.matrix(scale(UCE_girado)) #Escalar
 
 #Elbow
 set.seed(123)
-fviz_nbclust(UCE_escalado, kmeans, method = "wss")
+fviz_nbclust(UCE_girado, kmeans, method = "wss")
 
 #Sillhoutte
 set.seed(123)
-fviz_nbclust(UCE_escalado, kmeans, method = "silhouette")
+fviz_nbclust(UCE_girado, kmeans, method = "silhouette")
 
 #GAP STAT
 set.seed(123)
-fviz_nbclust(UCE_escalado, kmeans, method = "gap_stat")
+fviz_nbclust(UCE_girado, kmeans, method = "gap_stat")
 
 #EXTRACCION
-cl_UCE_2 <- kmeans(UCE_escalado,2,nstart = 50, iter.max = 15)
-cl_UCE_3 <- kmeans(UCE_escalado,3,nstart = 50, iter.max = 15)
+cl_UCE_2 <- kmeans(UCE_girado,2,nstart = 50, iter.max = 15)
+cl_UCE_3 <- kmeans(UCE_girado,3,nstart = 50, iter.max = 15)
 
-p_UCE_cl2 <- fviz_cluster(cl_UCE_2, data = UCE_escalado,
+p_UCE_cl2 <- fviz_cluster(cl_UCE_2, data = UCE_girado,
                       palette = c("#00AFBB","#2E9FDF", "#E7B800"),
                       ggtheme = theme_minimal(),
                       main = "K=2"
 ) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
 
-p_UCE_cl3 <- fviz_cluster(cl_UCE_3, data = UCE_escalado,
+p_UCE_cl3 <- fviz_cluster(cl_UCE_3, data = UCE_girado,
                       palette = c("#00AFBB","#2E9FDF", "#E7B800"),
                       ggtheme = theme_minimal(),
                       main = "K=3"
@@ -147,13 +141,13 @@ fviz_cluster(cl3_2, data = UC_escalado3,
 #Análisis de correspondencia
 library(FactoMineR)
 library(gplots)
-UC_gir <- t(UC) 
-UC_gir <- t(UC_gir) #girar
-UC_gir <- UC_gir[, -11] #eliminar col11 = OUTLIER(Usuario)
-UC_gir <- t(UC_gir) #volver a girar
-balloonplot(t(UC_gir), main ="Usuarios y Contexto", xlab ="", ylab="",
+UC_gir <- t(UCE) 
+#UC_gir <- t(UC_gir) #girar
+#UC_gir <- UC_gir[, -11] #eliminar col11 = OUTLIER(Usuario)
+#UC_gir <- t(UC_gir) #volver a girar
+balloonplot(t(UCE), main ="Usuarios y Contexto", xlab ="", ylab="",
             label = FALSE, show.margins = FALSE,text.size=0.5)
-UC_ca <- CA(UC_gir, graph = FALSE) #Análisis correspondencia
+UC_ca <- CA(UCE, graph = FALSE) #Análisis correspondencia
 eigen <- get_eigenvalue(UC_ca) #almacena eigenvalues
 fviz_screeplot(UC_ca, addlabels = TRUE, ylim = c(0, 50)) #
 fviz_screeplot(UC_ca) + geom_hline(yintercept=12.5, linetype=2, color="red")  #1/(ncol(UC_ca)-1) = 1/8 = 12.5%
@@ -180,3 +174,16 @@ fviz_contrib(UC_ca, choice = "row", axes = 1:2, top = 9)
 fviz_ca_row(UC_ca, col.row = "contrib",
             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), 
             repel = TRUE)
+
+
+#COLUMNAS
+col <- get_ca_col(UC_ca)
+col
+fviz_ca_col(UC_ca)
+fviz_ca_col(UC_ca, col.col = "cos2", 
+            gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+            repel = TRUE)
+fviz_cos2(UC_ca, choice = "col", axes = 1:3)
+fviz_contrib(UC_ca, choice = "col", axes = 1:3)
+fviz_ca_biplot(UC_ca, repel = TRUE)
+

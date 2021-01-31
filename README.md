@@ -315,7 +315,7 @@ La tarea de agrupación por vecindad y en este caso el algoritmo kmeans, es muy 
 
 ![](img/elbow2.jpeg)
 
-El método del ancho medio de la silueta tambiñen sugiere un corte de dos clúster.
+El método del ancho medio de la silueta también sugiere un corte de dos clúster.
 
 
 ![](img/silhouette2.jpeg)
@@ -338,14 +338,35 @@ p_UCE_cl2 <- fviz_cluster(cl_UCE_2, data = UCE_escalado,
 ) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
 
 ```
-Se generaron dos clúster de tamaño 25 y 1 con un 76% de la suma de los cuadrados internos. 
+Se generaron dos clúster de tamaño 25 y 1 con un 76% de la suma interna de los cuadrados, en que el segundo grupo solo contiene la variable CURSO.
 
-![](img/UC_Kk.jpeg)
+![](img/UCE_k2.jpeg)
+ 
+Aunque anteriormente los métodos para encontrar la cantidad máxima de clúster sugerían realizar la extracción con solo dos clúster, se realiza otra extracción con K=3. Debido a que la tabla de frecuencias de los recursos muestró que hay un recurso con una gran cantidad de registros (CURSO) y que las variables restantens tienen una frecuencias baja y media, por lo que podría existir una tercera agrupación que explique mejor los datos.
+
+![](img/UCE_freq.jpeg)
+
+De esta modo, se generó tres grupos de 5, 20 y 1 observación con un 92,9% de la suma interna de los cuadrados. 
+
+![](img/UCE_k3.jpeg)
 
 ## Interpretación de patrones
 
-## Consolidación del conocimiento
+En el análisis de cluster de estudiantes, se generaron 4 extracciones con K=1, K=2, K=3 y K=4, sin embargo el análisis para identiicar el número óptimo de clúster no fue concluyente. La extracción final con K=3 fue el que agrupó de mejor manera las variables de manera gráfica. 
 
+![](img/p_cl3.jpeg)
+
+El modelo final con K=3 indica ser correcto, pero según la prueba Gap el conjunto de datos podría ser agrupado en un sólo cluster. Esto tiene sentido cuando observamos la extensión del conjunto de datos es pequeño y se observa en la tabla de frecuencias que el grupo es homogéneo. La excepción es el estudiante 12 que es el que más interactuó con la plataforma, pero que no se observa en las gráficas hasta el modelo con K=4. Una vez más, esto puede indicar que el valor K=1 para la agrupación por estudiantes es el modelo definitivo y que describe mejor el conjunto.
+
+Por otra parte, para el clúster por recursos de plataforma se pudo evidenciar que el modelo que mejor representó al conjunto de datos resulta con K=3. Esto, respaldado tanto por la prueba del codo como silueta. En este caso específico se manifestaron 3 grupos que evidencian el acceso a recursos del curso por parte de los estudiantes. En el terecer grupo se agrupó la variable "CURSO" que es la que registra mayor cantidad de ocurrencias y que se relacionan directamente con visualizaciones del curso en general y acceso a la plataforma. Por otra parte, el segundo grupo fue se refiere a recursos en que los estudiantes presentaron mayor actividad y que principalmente se pueden identificar al inicio y al final del periodo de clases. Con respecto al primer grupo, este fue definido por todos aquellos recursos que registraron menos visualizaciones y que por lo tanto, tuvieron menos atención por parte de los estudiantes.
+
+
+## Consolidación del conocimiento
+El primer modelo de agrupación de estudiantes no generó resultados satisfactorios, principalmente porque el comportamiento del grupo fue homogéneo. Tal y como se visualizó en las frecuencias de acceso, todos los estudiantes ingresaron a la plataforma y mostrarin una mayor particioación al inicio y al final del periodo de clases. Aún así, se mantuvo una baja frecuencia de acceso, pero estable durante los demás meses en que se desarrolló el curso. Por esta razón, se puede concluir que K=1 representa de mejor manera el comportamiento general del grupo.
+
+El segundo modelo de agrupación de recursos de plataforma, evidenció de manera eficiente cuáles fueron las preferencias de los usuarios durante el periodo de clases. En este caso, se identificaron 3 grupos que describen aquellos recursos de plataforma que fueron más y menos utilizados por los estudiantes. Las visualizaciones generales del curso dominaron los registros de plataforma. El segundo grupo fue el más importante ya que refleja aquellos recursos y tipos de actividades que podrían volver a ser implementadas a futuro. Por otra parte, el primer grupo fue el que menos impactó en la experiencias de aprendizaje de los estudiantes, por lo que se sugiere revisar y re evaluar la implementación de estos recursos a futuro. 
+
+Para los siguientes trabajos se sugiere contar con registros de cursos más grandes o de varios cursos para poder utilizar otras técnicas de minería de datos.
 
 ## Referencias
 * Datanovia. (2020)K-Means Clustering in R: Algorithm and Practical Examples Datanovia.com https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/
