@@ -326,7 +326,21 @@ El tercer método sugiere que el número óptimo de cluster es de 1.
 
 ### Extraccion de clúster para recursos de la plataforma
 
+En este caso específico dos de los tres métodos sugirieron un número óptimo de 2 cluster, por lo que se realizó la extracción y graficación.
 
+```
+
+cl_UCE_2 <- kmeans(UCE_escalado,2,nstart = 50, iter.max = 15) 
+p_UCE_cl2 <- fviz_cluster(cl_UCE_2, data = UCE_escalado,
+                      palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+                      ggtheme = theme_minimal(),
+                      main = "K=2"
+) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+```
+Se generaron dos clúster de tamaño 25 y 1 con un 76% de la suma de los cuadrados internos. 
+
+![](img/UC_Kk.jpeg)
 
 ## Interpretación de patrones
 
