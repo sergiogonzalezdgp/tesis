@@ -89,7 +89,7 @@ int_join <- rename(int_join, Total = cnt.x)
 int_join <- rename(int_join, Participantes = cnt.y)
 int_join[is.na(int_join)] <- 0
 ```
-### Tabla de contingencia
+### Tablas de frecuencia
 Para poder observar los componentes más utilizados de la plataforma se construye una tabla de contingencia con el recuento de estudiantes que accedieron a los diferentes componentes del sistema y contextos de los eventos.
  
 ```
@@ -186,10 +186,71 @@ Del total de registros de estudiantes `1748` se calculó la cantidad de usuarios
 > sum(ago.sep$cnt)
 [1] 501
 ```
+
+### Tabla de frecuencia
+Para el análisis de posterior, se generó una tabla de frecuencia a partir de la variable `Contexto.del.evento` y `Nombre.completo.del.usuario` la cual posteriormente fue transformado a una matriz. Además se escalaron los datos para hacer comparables las variablos, procedimiento que consiste en que los datos tengan una media de "0" y una desviación estandar de 1.
+
+```
+UCE_escalado = as.data.frame.matrix(scale(UCE)) #Escalar
+UCE_escalado
+```
+
 ## Tarea de minería de datos
 Se decide utilizar una tarea de agrupamiento que corresponde a las tareas de tipo descriptiva. La literatura también la describe como un método de análisis multivariante para la representación de relaciones. El agrupamiento tiene como objetivo encontrar grupos o conjuntos de elementos que entre sí sean similares (Hernández et al., 2010). Esto quiere decir que se busca que los elementos que pertenen a un grupo tengan un grado alto de similitud entre sí. En algunos casos se pueden determinar el número de grupos que se desea encontrar y en otros casos esto se puede determinar mediante un algoritmo de agrupamiento según las características de los datos (Hernández et al., 2010).
 
 ## Algoritmo de minería de datos
+
+Para determinar la cantidad óptima de clúster existen varios métodos, entre ellos el método del codo, el método de silueta y Gap. En primera instancia, la idea de los métodos de particionamiento como el kmeans, es definir una cantidad de cluster en que la suma total de la variación intra clúster sea minimizada.
+
+
+<math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+  <mtable displaystyle="true">
+    <mlabeledtr>
+      <mtd id="mjx-eqn-1">
+        <mtext>(1)</mtext>
+      </mtd>
+      <mtd>
+        <mi>m</mi>
+        <mi>i</mi>
+        <mi>n</mi>
+        <mi>i</mi>
+        <mi>m</mi>
+        <mi>i</mi>
+        <mi>z</mi>
+        <mi>e</mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo maxsize="2.470em" minsize="2.470em">(</mo>
+        </mrow>
+        <munderover>
+          <mo>&#x2211;<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+          <mi>k</mi>
+        </munderover>
+        <mi>W</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>C</mi>
+          <mi>k</mi>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo maxsize="2.470em" minsize="2.470em">)</mo>
+        </mrow>
+      </mtd>
+    </mlabeledtr>
+  </mtable>
+</math>
+
+
+Con el método del codo, el total de la suma de los cuadrados intra cluster mide lo compacto del cluster, el cual debe ser lo más bajo posible. El metodo de silueta mide la calidad del clustering, determinando qué tan bien se posiciona cada objeto dentro del clúster. El método GAP compara el total de la variación intracluster para diferentes valores de k con los valores esperados bajo una distribución de referencia nula en los datos.
+
+Para determinar la cantidad de cluster se utilizó la  función `fviz_nbclust` del paquete FactoMineR. Esta función permite calcular y graficar los 3 métodos mencionados anteriormente.
+
+
 El algoritmo utilizado fue el K medias, que es un método de agrupamiento por vecindad, en que los datos con características similares se ubican en el espacio mediante sus centros o prototipos (Hernández et al., 2010). K medias opera directamente en una matriz de datos en busca de similitudes, y necesita un conjunto de posiciones tentativas alrededor de las cuales organizar grupos para el ajuste posterior. 
 
 
@@ -197,15 +258,74 @@ El algoritmo utilizado fue el K medias, que es un método de agrupamiento por ve
 
 
 El algoritmo realiza los siguientes pasos:
+
 * Fijar el número de cluster igual o mayor a 2
 * Calcula los centroides de cada cluster
 * Asigna sus puntos mas cercanos al centroide
 * Recalcula la posición del centroide y repite
 
-Para determinar la cantidad de cluster se utilizó la técnica del codo representada por la función `fviz_nbclust` del paquete FactoMineR.
+
 
 
 ## Minería de datos
+
+Se cargó la librería `factoextra` y se ejecutó la función `fviz_nbclust` correspondiente para cada uno de los métodos.
+
+
+### Cantidad óptima de Cluster para los usuarios
+Aunque el método del codo no sugiere claramente un punto de quiebre en la curva,  se podría asumir que desde el cuarto clúster hay un cambio de dirección más claro.
+```
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "wss")
+``` 
+
+![Elbow Method](img/elbow.jpeg)
+ 
+Con respecto al método de silueta nos sugiere claramente que un número de 8 cluster es el ideal.
+```
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "sillhoutte")
+```
+
+![Silhouette Method](img/silhouette.jpeg)
+
+En el caso del método estadístico Gap, éste indica que estadísticamente el conjunto de datos se puede agrupar de forma óptima en un solo clúster.
+```
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "gap_stat")
+
+```
+
+![Gap Method](img/gap.jpeg)
+
+### Extracción de cluster de usuarios
+Debido a que los métodos para determinar la cantidad de clúster óptimos difieren entre sí, se decide graficar la distribución de k=1 hasta k=4. 
+
+
+![](img/k1k4.jpeg)
+
+* La extracción de K=2 arrojó dos cluster de tamaño 6 y 6 con 20.1% de la suma de los cuadrados internos. 
+* La extracción con K=3 arrojó clúster de tamaño 4, 2 y 6 con un 35,7% de la suma de cuadrados internos.
+* La extracción con K=4 encontró clúster de tamaño 4, 4, 2 y2 con un 48,1% de la suma de los cuadrados internos.
+
+Con la misma tabla de frecuencias se realizó una segunda extracción de cluster para las actividades y recursos de la plataforma. Para esto, se realizó el mismo procedimiento anterior. En este caso se hizo una rotación de la tabla.
+
+### Cantidad óptima de Cluster para los recursos de plataforma
+La tarea de agrupación por vecindad y en este caso el algoritmo kmeans, es muy sensible a los cambios en los datos, por lo que la rotación de la tabla de frecuencias muestra ajustes totalmente diferentes al modelo anterior. El método del codo indica que el número óptimo es de dos clúster.
+```
+![](img/elbow2.jpeg)
+
+```
+El método del ancho medio de la silueta tambiñen sugiere un corte de dos clúster.
+```
+![](img/silhouette2.jpeg)
+
+```
+
+```
+![](img/gap2.jpeg)
+
+```
 
 ## Interpretación de patrones
 
@@ -213,6 +333,7 @@ Para determinar la cantidad de cluster se utilizó la técnica del codo represen
 
 
 ## Referencias
+* Datanovia. (2020)K-Means Clustering in R: Algorithm and Practical Examples Datanovia.com https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/
 * Hernández Orallo, J., Ramírez Quintana, M. J., & Ferri Ramírez, C. (2010). Introducción a la minería de datos. Pearson.
 * W.L. Myers and G.P. Patil, Multivariate Methods of Representing Relations 13
 in R for Prioritization Purposes, Environmental and Ecological Statistics 6,
