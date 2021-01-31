@@ -312,20 +312,21 @@ Con la misma tabla de frecuencias se realizó una segunda extracción de cluster
 
 ### Cantidad óptima de Cluster para los recursos de plataforma
 La tarea de agrupación por vecindad y en este caso el algoritmo kmeans, es muy sensible a los cambios en los datos, por lo que la rotación de la tabla de frecuencias muestra ajustes totalmente diferentes al modelo anterior. El método del codo indica que el número óptimo es de dos clúster.
-```
+
 ![](img/elbow2.jpeg)
 
-```
 El método del ancho medio de la silueta tambiñen sugiere un corte de dos clúster.
-```
+
+
 ![](img/silhouette2.jpeg)
 
-```
+El tercer método sugiere que el número óptimo de cluster es de 1.
 
-```
 ![](img/gap2.jpeg)
 
-```
+### Extraccion de clúster para recursos de la plataforma
+
+
 
 ## Interpretación de patrones
 
