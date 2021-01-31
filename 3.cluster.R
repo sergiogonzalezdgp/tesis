@@ -16,6 +16,93 @@ cluster_4 <- kmeans(escalado,4,nstart = 50, iter.max = 15)
 cluster_3 <- kmeans(escalado,3,nstart = 50, iter.max = 15)
 cluster_2 <- kmeans(escalado,2,nstart = 50, iter.max = 15)
 
+#Cluster y contexto del evento
+UCE_escalado = as.data.frame.matrix(scale(UCE)) #Escalar
+UCE_escalado
+
+#Elbow
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "wss")
+
+#Sillhoutte
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "silhouette")
+
+#GAP STAT
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "gap_stat")
+
+# Extracción de Cluster
+cl_1 <- kmeans(UCE_escalado,1,nstart = 50, iter.max = 15)
+cl_2 <- kmeans(UCE_escalado,2,nstart = 50, iter.max = 15)
+cl_3 <- kmeans(UCE_escalado,3,nstart = 50, iter.max = 15)
+cl_4 <- kmeans(UCE_escalado,4,nstart = 50, iter.max = 15)
+
+#ALMACENAR K=1:K=4
+p_cl1 <- fviz_cluster(cl_1, data = UCE_escalado,
+                      palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+                      ggtheme = theme_minimal(),
+                      main = "K=1"
+) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+p_cl2 <- fviz_cluster(cl_2, data = UCE_escalado,
+                      palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+                      ggtheme = theme_minimal(),
+                      main = "K=2"
+) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+p_cl3 <- fviz_cluster(cl_3, data = UCE_escalado,
+                      palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+                      ggtheme = theme_minimal(),
+                      main = "K=3"
+) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+p_cl4 <- fviz_cluster(cl_4, data = UCE_escalado,
+                      palette = c("#00AFBB","#2E9FDF", "#E7B800", "#ff5e78"),
+                      ggtheme = theme_minimal(),
+                      main = "K=4"
+) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+
+library(gridExtra)
+grid.arrange(p_cl1, p_cl2, p_cl3, p_cl4, nrow = 2, margin())
+
+#CLUSTER UCE Girado
+library(gplots)
+UCE_girado <- t(UCE)
+balloonplot(t(UCE_girado), main ="Contexto", xlab ="", ylab="", label = FALSE, show.margins = FALSE) #Frecuencias
+
+UCE_escalado = as.data.frame.matrix(scale(UCE_girado)) #Escalar
+
+#Elbow
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "wss")
+
+#Sillhoutte
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "silhouette")
+
+#GAP STAT
+set.seed(123)
+fviz_nbclust(UCE_escalado, kmeans, method = "gap_stat")
+
+#EXTRACCION
+cl_UCE_2 <- kmeans(UCE_escalado,2,nstart = 50, iter.max = 15)
+cl_UCE_3 <- kmeans(UCE_escalado,3,nstart = 50, iter.max = 15)
+
+p_UCE_cl2 <- fviz_cluster(cl_UCE_2, data = UCE_escalado,
+                      palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+                      ggtheme = theme_minimal(),
+                      main = "K=2"
+) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+p_UCE_cl3 <- fviz_cluster(cl_UCE_3, data = UCE_escalado,
+                      palette = c("#00AFBB","#2E9FDF", "#E7B800"),
+                      ggtheme = theme_minimal(),
+                      main = "K=3"
+) + theme(plot.margin = unit(c(1, 1, 1, 1), "cm")) + theme(plot.title = element_text(hjust = 0.5))
+
+
 #CLUSTER ANALISIS
 UC_escalado = as.data.frame.matrix(scale(UC)) #Escalar
 UC_escalado
@@ -25,9 +112,9 @@ cl_3 <- kmeans(UC_escalado,3,nstart = 50, iter.max = 15)
 cl_4 <- kmeans(UC_escalado,4,nstart = 50, iter.max = 15)
 cl_5 <- kmeans(UC_escalado,5,nstart = 50, iter.max = 15)
 library(factoextra)
-fviz_nbclust(UC_escalado, kmeans, method = "gap_stat")
+fviz_nbclust(UC_escalado, kmeans, method = "wss")
 
-fviz_cluster(cl_3, data = UC_escalado,
+fviz_cluster(cl_4, data = UC_escalado,
              palette = c("#00AFBB","#2E9FDF", "#E7B800"),
              ggtheme = theme_minimal(),
              main = "Partitioning Clustering Plot"
@@ -37,7 +124,7 @@ fviz_cluster(cl_3, data = UC_escalado,
 UC_escalado2 = as.data.frame.matrix(scale(UCE)) #Escalar
 UC_escalado2
 set.seed(123)
-fviz_nbclust(UC_escalado2, kmeans, method = "gap_stat")
+fviz_nbclust(UC_escalado2, kmeans, method = "wss")
 cl2_2 <- kmeans(UC_escalado2,2,nstart = 50, iter.max = 15)
 fviz_cluster(cl2_2, data = UC_escalado2,
              palette = c("#00AFBB","#2E9FDF", "#E7B800"),
