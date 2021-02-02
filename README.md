@@ -188,7 +188,7 @@ figura3 <- ggarrange(it_b, ut_b, ncol = 2, nrow = 1) +
 
 ![Figura1](img/Figura3.jpeg)
 
-En ambos gráficos se puede observar bajas en la cantidad de registros en los periodos comprendidos entre mayo y junio y otra baja en los meses de agosto. Por otra parte, ambos gráficos muestran un máximo de interacciones en diferentes periodos del año. Con la función `summary()` se reportaron siguientes datos:
+En ambos gráficos se puede observar bajas en la cantidad de registros en los periodos comprendidos entre mayo y junio y otra baja en los meses de agosto. Por otra parte, ambos gráficos muestran un máximo de interacciones en diferentes periodos del año para las varialbes fecha y cnt(conteo). Con la función `summary()` se reportaron siguientes datos:
 ```
 #Todos los usuarios
 
