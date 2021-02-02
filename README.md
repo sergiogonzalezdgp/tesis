@@ -113,6 +113,33 @@ UC
 UCE <-  table(estudiantes$Nombre.completo.del.usuario, estudiantes$Contexto.del.evento)
 UCE
 
+Archivo1 Archivo2  Archivo3  Archivo4 Archivo5  Archivo6 Archivo7  Archivo8  Archivo9 Carpeta 1  Chat CURSO Foro1 Foro2
+  usuario_1         0         0         1        2         3        0         1         0        0          2    0    20     0     3
+  usuario_10        0         1         0        2         1        0         0         1        2          3    0    56     0    20
+  usuario_11        1         1         2        2         0        2         1         2        0          1    2    56     1    18
+  usuario_12        5         1         1        3         2        2         1         2        1          4    1   110     1    23
+  usuario_2         4         0         2        2         1        2         1         3        0          4    0    53     0    17
+  usuario_3         0         1         0        1         0        0         0         2        0          4    1    52     0    29
+  usuario_4         2         0         0        3         0        1         1         1        0          2    1    47     0    24
+  usuario_5         1         0         2        3         2        2         2         2        0          4    0    55     0     5
+  usuario_6         1         0         1        3         2        0         1         4        6          5    0    89     1    23
+  usuario_7         0         2         1        1         3        0         2         5        3          7    0    72     0    11
+  usuario_8         3         0         0        0         0        2         3         2        0          4    0    95     0    25
+  usuario_9         0         0         1        2         1        1         0         0        1          2    0    26     0     3
+            
+             Foro3 Foro4  H5P-1 H5P-2 H5P-3 H5P-4 H5P-5 H5P-6 Tarea Tarea2 URL1 URL4
+  usuario_1      6      6     0     0     0     0     0     6    11      0    0    0
+  usuario_10    13      9     0     0     0     0     0    13    11      2    2    0
+  usuario_11    14      0     0     3     1     1     2    12    13      2    0    1
+  usuario_12    11     12     0     3     2     1     6     7    45     26    1    0
+  usuario_2     26     12     0     0     2     1     1    10    13      0    1    0
+  usuario_3     16      4     0     0     0     0     0    10     4      2    0    0
+  usuario_4     15      7     1     4     2     2     1     8    10      6    0    2
+  usuario_5     15     14     0     3     3     1     0     9    15      2    0    0
+  usuario_6      6     10     0     0     0     0     6    11    13      0    5    0
+  usuario_7     17     22     1     0     2     1     3    13     6      0    0    0
+  usuario_8      1      0     0     0     2     3     3     8    27      2    0    0
+  usuario_9      8     12     1     0     0     0     0     7    13      0    0    0
 
 ```
 ## Visualización de los datos
