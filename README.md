@@ -245,7 +245,7 @@ Del un total de `1748` registros de estudiantes durante el periodo completo, se 
 ```
 
 ### Tabla de frecuencia
-Para el análisis de los clúster se generó una tabla de frecuencia a partir de la variable `Contexto.del.evento` y `Nombre.completo.del.usuario`, la cual fue transformada a una matriz de contingencia. Además se escalaron los datos para hacer comparables las variablos, procedimiento que consiste en que los datos tengan una media de "0" y una desviación estandar de 1.
+Para el análisis de los clúster se generó una tabla de frecuencia a partir de la variable `Contexto.del.evento` y `Nombre.completo.del.usuario`, la cual fue transformada a una matriz de contingencia. Además se escalaron los datos para hacer comparables las variables, procedimiento que consiste en que los datos tengan una media de "0" y una desviación estandar de 1.
 
 ```
 UCE_escalado = as.data.frame.matrix(scale(UCE)) #Escalar
