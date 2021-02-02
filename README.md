@@ -56,6 +56,16 @@ log <- select(log, -Descripción, -Origen, -Dirección.IP)
 log <-  filter(log, Contexto.del.evento != "189.148.203.31") 
 log <- filter(log, Nombre.completo.del.usuario != "-")
 log$Fecha <- as.Date(log$Fecha, format="%Y-%m-%d")
+
+head(log)
+
+       Fecha Nombre.completo.del.usuario Contexto.del.evento              Componente                Nombre.evento
+1 2020-09-25                       Admin               CURSO               Registros   Informe de registros visto
+2 2020-09-25                       Admin               CURSO                 Sistema                  Curso visto
+3 2020-09-25                Investigador               CURSO                 Sistema                  Curso visto
+4 2020-09-23                  usuario_11               CURSO                 Sistema                  Curso visto
+5 2020-09-22                Investigador               CURSO             Archivo XML   Calificación XML exportada
+6 2020-09-22                Investigador               CURSO Informe del Calificador Informe del examinador visto
 ```
 También, se excluyeron aquellos registros realizados por el administrador, investigador y profesor de la asignatura para crear un segundo objeto llamado `estudiantes`. 
 ```
