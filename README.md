@@ -409,7 +409,7 @@ De esta modo, se generó tres grupos de 5, 20 y 1 observación con un 92,9% de l
 
 ## Interpretación de patrones
 
-En el análisis de cluster de estudiantes, se generaron 4 extracciones con K=1, K=2, K=3 y K=4, sin embargo el análisis para identiicar el número óptimo de clúster no fue concluyente. La extracción final con K=3 fue el que agrupó de mejor manera las variables de manera gráfica. 
+En el análisis de cluster de estudiantes, se generaron 4 extracciones con K=1, K=2, K=3 y K=4, sin embargo el análisis para identiicar el número óptimo de clúster no fue concluyente. La extracción final con K=3 fue el que agrupó de mejor manera las variables de forma gráfica. 
 
 ![](img/p_cl3.jpeg)
 
