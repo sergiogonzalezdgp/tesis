@@ -238,7 +238,7 @@ ultimomes <- ggplot(ago.sep, aes(fecha, cnt)) + geom_line() + scale_x_date('Mes'
 ```
 ![Figura1](img/Figura5.jpeg)
 
-Del total de registros de estudiantes `1748` se calculó la cantidad de usuarios del último mes con la función `sum`.
+Del un total de `1748` registros de estudiantes durante el periodo completo, se calculó la cantidad de usuarios en el último mes con la función `sum`.
 ```
 > sum(ago.sep$cnt)
 [1] 501
