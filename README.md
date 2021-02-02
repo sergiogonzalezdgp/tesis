@@ -94,11 +94,31 @@ Para poder observar los componentes más utilizados de la plataforma se construy
  
 ```
 UC <- table(estudiantes$Nombre.completo.del.usuario, estudiantes$Componente)
+UC
+
+             Archivos enviados Carpeta Chat Cuestionario Foro H5P Recurso Sistema Tarea URL Usuario
+  usuario_1                  2       2    0            6   15   0       7      21     8   0       0
+  usuario_10                 2       3    0           13   41   0       7      58    10   2       0
+  usuario_11                 2       1    2           12   35   5      11      57    12   1       0
+  usuario_12                 4       4    1            7   49  10      18     112    64   1       1
+  usuario_2                  2       4    0            9   66   4      11      48    10   1       0
+  usuario_3                  0       4    1           10   46   0       4      55     6   0       0
+  usuario_4                  0       2    1            8   45   8       8      50    16   2       0
+  usuario_5                  2       4    0            9   34   5      14      58    14   0       0
+  usuario_6                  2       5    0           11   38   6      17      93    10   5       0
+  usuario_7                  0       7    0           13   49   7      17      73     6   0       0
+  usuario_8                  2       4    0            7   25   8      10      98    26   0       0
+  usuario_9                  2       2    0            7   22   1       6      28    10   0       0
+
 UCE <-  table(estudiantes$Nombre.completo.del.usuario, estudiantes$Contexto.del.evento)
+UCE
+
+
 ```
 ## Visualización de los datos
-Se carga la librería ggpubr para visualizar diferentes gráficos en un mismo plot. Se utiliza además `ggplot2` que ya ha sido cargado anteriormente con las librerías anteriores.
+Se cargan además la librería `ggplot2` y `ggpubr` para la visualización de datos.
 ```
+library(ggplot)
 library(ggpubr)
 ```
 ### Graficando el acceso al curso
