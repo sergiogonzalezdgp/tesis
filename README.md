@@ -1,5 +1,12 @@
-# Learning Analytics con R studio 
-Este es la documentación del proceso de limpieza y visualización de un conjunto de datos extraídos de Moodle. El conjunto de datos fue obtenido en un lapso de 7 meses de las cuales existen fechas en que no se registraron ingresos al curso. Este conjunto de datos no presenta valores N/A. Los datos presentan datos de fecha, variables cualitativas (categorías) y númericas de Direción IP.
+# Big Data for Education
+## Resumen
+A consecuencia de la situación actual los sistemas educativos han migrado a servicios en línea por lo que se dispone de gran cantidad de datos generados por la actividad de los estudiantes. Este trabajo presenta un ejercicio de Minería de datos para encontrar grupos de estudiantes con comportamientos de plataforma similares y grupos de recursos que presentan con más actividad. Se realizó una tarea de agrupamiento con el algoritmo K-medias y se utilizaron tres métodos para encontrar el número óptimo de cluster. Se encontró un grupo que explicó la totalidad del comportamiento de los estudiantes, mientras que se encontraron tres grupos que explican la actividad de los usuarios con respecto a los recursos de plataforma.
+
+# Introducción
+En el último año ha aumentado de manera importante la generación de datos en el ámbito de la educación, debido a que las instituciones educativas han tenido que migrar sus procesos formativos hacia sistemas disponibles en la web. Desde la plataforma Moodle informaron que se han creado, desde el 20 de marzo de 2020, alrededor de 50 mil nuevos sitios en todo el mundo («Moodle en números durante Covid-19», 2020). Sin embargo, el estudio en torno a el comportamiento de estudiantes en Sistemas de Gestión de Aprendizajes, no es algo tan reciente.
+Estudios anteriores han incursionado en la aplicación de la minería de datos en plataformas como Moodle para programas formativos en línea. Romero et al. (2008), aplicó la minería de datos en sistemas educacionales basados en computadora y la web, utilizando tareas de agrupación, clasificación y reglas de asociación con el uso del software Weka. Del mismo modo, se han utilizado técnicas de Aprendizaje Automático para el análisis del rendimiento de los estudiantes. Hussain et al. (2018), monitorearon la actividad de los estudiantes para predecir a estudiantes con bajo rendimiento utilizando las técnicas Fuzzy Unordered Rule Induction Algorithm (FURIA), Artificial Inmune Recognition System (AIRS), Random Forest (RF) y algoritmo K-medias. También en el área del desempeño de los estudiantes en plataforma Moodle, este se ha estudiado con base a comparaciones a la aplicación de diferentes algoritmos de agrupamiento. Pradana et al. (2020), utilizaron los algoritmos K-medias, agrupamiento jerárquico y el agrupamiento Louvain con el uso de las herramientas Weka, Rapid Miner, SPSS, KNIME, Orange3, KEEL, Spark MLLib y elasticsearch.
+Este trabajo utilizó los datos de actividad de los estudiantes de un curso realizado en línea, con el fin de encontrar grupos de estudiantes con comportamientos similares y grupos de recursos de plataforma con más actividad. De esta manera, primero se analizó la actividad general del grupo a través del periodo de estudio,  y posteriormente se aplicó el algoritmo K-medias.
+
 
 ## Procedimiento
 * [Comprensión del dominio de la aplicación](#comprensión-del-dominio-de-la-aplicación)
@@ -11,10 +18,11 @@ Este es la documentación del proceso de limpieza y visualización de un conjunt
 * [Minería de datos](#minería-de-datos)
 * [Interpretación de patrones](#interpretación-de-patrones)
 * [Consolidación del conocimiento](#consolidación-del-conocimiento)
-* [## Referencias](#referencias)
+* [Conclusiones](#conclusiones)
+* [Referencias](#referencias)
 
 ## Comprensión del dominio de la aplicación
-El conjunto de datos utilizado contiene un total de 3240 observaciones y 8 variables. Estos corresponden a los registros almacenados por la plataforma Moodle de un curso conformado por 12 estudiantes, el administrador de la plataforma, un profesor y un investigador. El curso pertenece a una universidad del sur de Chile de una carrera de pregrado y fueron capturados entre los meses de abril y agosto del año 2020 en un contexto de aislamiento social y por lo tanto, en una modalidad de clases a distancia con el uso de Learning Managment System (LMS). Se busca identificar grupos relevantes que describan comportamientos de uso de la plataforma institucional como evidencias de las experiencias de aprendizaje en línea de los estudiantes.
+El conjunto de datos fue obtenido en un lapso de 7 meses de las cuales existen fechas en que no se registraron ingresos al curso. Este conjunto de datos no presenta valores N/A. Los datos presentan datos de fecha, variables cualitativas (categorías) y númericas de Direción IP.El archivo original contiene un total de 3240 observaciones y 8 variables. Estos corresponden a los registros almacenados por la plataforma Moodle de un curso conformado por 12 estudiantes, el administrador de la plataforma, un profesor y un investigador. El curso pertenece a una universidad del sur de Chile de una carrera de pregrado y fueron capturados entre los meses de abril y agosto del año 2020 en un contexto de aislamiento social y por lo tanto, en una modalidad de clases a distancia con el uso de Learning Managment System (LMS). Se busca identificar grupos relevantes que describan comportamientos de uso de la plataforma institucional como evidencias de las experiencias de aprendizaje en línea de los estudiantes.
 
 ### Variables registradas
 * Fecha
@@ -123,33 +131,47 @@ UC
 UCE <-  table(estudiantes$Nombre.completo.del.usuario, estudiantes$Contexto.del.evento)
 UCE
 
-Archivo1 Archivo2  Archivo3  Archivo4 Archivo5  Archivo6 Archivo7  Archivo8  Archivo9 Carpeta 1  Chat CURSO Foro1 Foro2
-  usuario_1         0         0         1        2         3        0         1         0        0          2    0    20     0     3
-  usuario_10        0         1         0        2         1        0         0         1        2          3    0    56     0    20
-  usuario_11        1         1         2        2         0        2         1         2        0          1    2    56     1    18
-  usuario_12        5         1         1        3         2        2         1         2        1          4    1   110     1    23
-  usuario_2         4         0         2        2         1        2         1         3        0          4    0    53     0    17
-  usuario_3         0         1         0        1         0        0         0         2        0          4    1    52     0    29
-  usuario_4         2         0         0        3         0        1         1         1        0          2    1    47     0    24
-  usuario_5         1         0         2        3         2        2         2         2        0          4    0    55     0     5
-  usuario_6         1         0         1        3         2        0         1         4        6          5    0    89     1    23
-  usuario_7         0         2         1        1         3        0         2         5        3          7    0    72     0    11
-  usuario_8         3         0         0        0         0        2         3         2        0          4    0    95     0    25
-  usuario_9         0         0         1        2         1        1         0         0        1          2    0    26     0     3
+             Archivo1 Archivo2  Archivo3  Archivo4 Archivo5  Archivo6 Archivo7  Archivo8 
+  usuario_1         0         0         1        2         3        0         1         0
+  usuario_10        0         1         0        2         1        0         0         1
+  usuario_11        1         1         2        2         0        2         1         2
+  usuario_12        5         1         1        3         2        2         1         2
+  usuario_2         4         0         2        2         1        2         1         3
+  usuario_3         0         1         0        1         0        0         0         2
+  usuario_4         2         0         0        3         0        1         1         1
+  usuario_5         1         0         2        3         2        2         2         2
+  usuario_6         1         0         1        3         2        0         1         4
+  usuario_7         0         2         1        1         3        0         2         5
+  usuario_8         3         0         0        0         0        2         3         2
+  usuario_9         0         0         1        2         1        1         0         0
             
-             Foro3 Foro4  H5P-1 H5P-2 H5P-3 H5P-4 H5P-5 H5P-6 Tarea Tarea2 URL1 URL4
-  usuario_1      6      6     0     0     0     0     0     6    11      0    0    0
-  usuario_10    13      9     0     0     0     0     0    13    11      2    2    0
-  usuario_11    14      0     0     3     1     1     2    12    13      2    0    1
-  usuario_12    11     12     0     3     2     1     6     7    45     26    1    0
-  usuario_2     26     12     0     0     2     1     1    10    13      0    1    0
-  usuario_3     16      4     0     0     0     0     0    10     4      2    0    0
-  usuario_4     15      7     1     4     2     2     1     8    10      6    0    2
-  usuario_5     15     14     0     3     3     1     0     9    15      2    0    0
-  usuario_6      6     10     0     0     0     0     6    11    13      0    5    0
-  usuario_7     17     22     1     0     2     1     3    13     6      0    0    0
-  usuario_8      1      0     0     0     2     3     3     8    27      2    0    0
-  usuario_9      8     12     1     0     0     0     0     7    13      0    0    0
+             Archivo9 Carpeta 1  Chat CURSO Foro1 Foro2 Foro3 Foro4  H5P-1 H5P-2 H5P-3
+  usuario_1         0          2    0    20     0     3     6      6     0     0     0
+  usuario_10        2          3    0    56     0    20    13      9     0     0     0
+  usuario_11        0          1    2    56     1    18    14      0     0     3     1
+  usuario_12        1          4    1   110     1    23    11     12     0     3     2
+  usuario_2         0          4    0    53     0    17    26     12     0     0     2
+  usuario_3         0          4    1    52     0    29    16      4     0     0     0
+  usuario_4         0          2    1    47     0    24    15      7     1     4     2
+  usuario_5         0          4    0    55     0     5    15     14     0     3     3
+  usuario_6         6          5    0    89     1    23     6     10     0     0     0
+  usuario_7         3          7    0    72     0    11    17     22     1     0     2
+  usuario_8         0          4    0    95     0    25     1      0     0     0     2
+  usuario_9         1          2    0    26     0     3     8     12     1     0     0
+            
+             H5P-4 H5P-5 H5P-6 Tarea Tarea2 URL1 URL4
+  usuario_1      0     0     6    11      0    0    0
+  usuario_10     0     0    13    11      2    2    0
+  usuario_11     1     2    12    13      2    0    1
+  usuario_12     1     6     7    45     26    1    0
+  usuario_2      1     1    10    13      0    1    0
+  usuario_3      0     0    10     4      2    0    0
+  usuario_4      2     1     8    10      6    0    2
+  usuario_5      1     0     9    15      2    0    0
+  usuario_6      0     6    11    13      0    5    0
+  usuario_7      1     3    13     6      0    0    0
+  usuario_8      3     3     8    27      2    0    0
+  usuario_9      0     0     7    13      0    0    0
 
 ```
 ## Visualización de los datos
@@ -302,10 +324,29 @@ Para determinar la cantidad óptima de clúster existen varios métodos, entre e
   </mtable>
 </math>
 
+El método del codo consiste en examinar la fracción de la varianza en función del número de cluster (Wierzchoń & Kłopotek, 2018). Con este método, el total de la suma de los cuadrados intra cluster mide lo compacto del cluster, el cual debe ser lo más bajo posible. Los pasos que se realizan con este método son: 
 
-Con el método del codo, el total de la suma de los cuadrados intra cluster mide lo compacto del cluster, el cual debe ser lo más bajo posible. El metodo de silueta mide la calidad del clustering, determinando qué tan bien se posiciona cada objeto dentro del clúster. El método GAP compara el total de la variación intracluster para diferentes valores de k con los valores esperados bajo una distribución de referencia nula en los datos.
+* Calcular un algoritmo de clustering para diferentes valores K, por ejemplo de 1 a 11 clúster.
+* Para cada uno de los clúster calcular la suma total de los cuadrados internos.
+* Graficar la curva de la suma total de los cuadrados internos.
+* Observar y localizar el punto en que la línea se curva en el gráfico, indicador del número adecuado de clústers.
 
-Para determinar la cantidad de cluster se utilizó la  función `fviz_nbclust` del paquete FactoMineR. Esta función permite calcular y graficar los 3 métodos mencionados anteriormente.
+El Coeficiente de Silueta mide la calidad del clustering, determinando qué tan bien se posiciona cada objeto dentro del clúster en relación con la distancia media a elementos de otros grupos. De esta manera, si la silueta es cercana a -1 la entidad se encuentra mal clasificadam, mientras que si la silueta es cercana a 0 significa que el cluster está bien (Wierzchoń & Kłopotek, 2018).
+
+* Calcular un algoritmo de clustering para diferentes valores K, por ejemplo de 1 a 11 clúster.
+* Para cada uno de los clúster calcular el promedio de la silueta.
+* Graficar la curva del promedio de la silueta para cáda K cluster.
+* El promedio máximo de la silueta corresponde al número apropiado de cluster.
+
+GAP statistics compara el total de la variación intracluster para diferentes valores de k con los valores esperados bajo una distribución de referencia nula en los datos. Se supone que el valor de k, para el cual el rango es máximo, es la estimación probable del número de conglomerados (Wierzchoń & Kłopotek, 2018). El algoritmo trabaja de la siguiente forma:
+
+* Calcula el algoritmo de cluster, para valores K=1, ..., K max, y calcula la variación total intra clúster.
+* Genera un dataset de referencia con una distribución aleatoria uniforme, agrupa cada una de las referencias variando el número de cluster de K=1, ..., K max y calcula la correspondencia total de la variación intra cluster.
+* Calcula la brecha estadística estimada de la correspondencia total de la variación intra cluster variación total intra cluster esperada. Calcula además la desviación estandar de las estadísticas.
+* Elige el número de cluster como el valor más bajo de K, de tal modo que la brecha estadística se encuentre dentro de una desviación estandar de la brecha K+1.
+(Kassambara, 2017).
+
+Para determinar la cantidad óptima de cluster se utilizó la función `fviz_nbclust` del paquete FactoMineR. Esta función permite calcular y graficar los 3 métodos mencionados anteriormente.
 
 
 El algoritmo utilizado fue el K medias, que es un método de agrupamiento por vecindad, en que los datos con características similares se ubican en el espacio mediante sus centros o prototipos (Hernández et al., 2010). K medias opera directamente en una matriz de datos en busca de similitudes, y necesita un conjunto de posiciones tentativas alrededor de las cuales organizar grupos para el ajuste posterior. 
@@ -423,11 +464,22 @@ El primer modelo de agrupación de estudiantes no generó resultados satisfactor
 
 El segundo modelo de agrupación de recursos de plataforma, evidenció de manera eficiente cuáles fueron las preferencias de los usuarios durante el periodo de clases. En este caso, se identificaron 3 grupos que describen aquellos recursos de plataforma que fueron más y menos utilizados por los estudiantes. Las visualizaciones generales del curso dominaron los registros de plataforma. El segundo grupo fue el más importante ya que refleja aquellos recursos y tipos de actividades que podrían volver a ser implementadas a futuro. Por otra parte, el primer grupo fue el que menos impactó en la experiencias de aprendizaje de los estudiantes, por lo que se sugiere revisar y re evaluar la implementación de estos recursos a futuro. 
 
-Para los siguientes trabajos se sugiere contar con registros de cursos más grandes o de varios cursos para poder utilizar otras técnicas de minería de datos.
+
+## Conclusiones
+
+El presente trabajo presentó un análisis de la actividad registrada en una plataforma Moodle de un grupo de estudiantes universitarios del sur de Chile. Para esto se realizó la extracción de registros desde la interfaz de una platafora institucional, se hizo la limpieza de los datos, su transformación y la visualización de ellos. Se utilizaron trés métodos para encontrar el número óptimo de clusters para aplicar el algoritmo K-medias con el objetivo de encontrar grupos de estudiantes con comportamientos similares y grupos de recursos del sistema con más actividad. Se logró encontrar un solo cluster para el análisis de los estudiantes por lo que se concluyó que el grupo tuvo un comportamiento homogéneo. Por otra parte, en el análisis de los recursos se encontró 3 grupos, el primer grupo se conformó por los recursos con menos actividad, el segundo con los recursos de aprendizaje con mayor actividad y el tercer grupo conformado por el contexto del curso que corresponde a visualizaciones de plataforma. 
+Aunque en este trabajo sólo se utilizó una tarea de minería descriptiva, se recomienda comparar estos resultados utilizando otros algoritmos de agrupación como el jerárquico o k-medoid. También, se sugiere aplicar otras tareas de minería, para probar otros modelos en busca de patrones en la actividad registrada de los estudiantes. Por otra parte, por la naturaleza de los datos se podría realizar análisis de series temporales y aplicar métodos como ARIMA.
+
+
 
 ## Referencias
 * Datanovia. (2020)K-Means Clustering in R: Algorithm and Practical Examples Datanovia.com https://www.datanovia.com/en/lessons/k-means-clustering-in-r-algorith-and-practical-examples/
 * Hernández Orallo, J., Ramírez Quintana, M. J., & Ferri Ramírez, C. (2010). Introducción a la minería de datos. Pearson.
+* Hussain, M., Hussain, S., Zhang, W., Zhu, W., Theodorou, P., & Abidi, S. M. R. (2018). Mining Moodle Data to Detect the Inactive and Low-performance Students during the Moodle Course. Proceedings of the 2nd International Conference on Big Data Research - ICBDR 2018, 133-140. https://doi.org/10.1145/3291801.3291828
+* Moodle en números durante Covid-19. (2020, mayo 19). Moodle. https://moodle.com/es/news/moodle-en-numeros-durante-covid-19/
+* Pradana, C., Kusumawardani, S. S., & Permanasari, A. E. (2020). Comparison Clustering Performance Based on Moodle Log Mining. IOP Conference Series: Materials Science and Engineering, 722, 012012. https://doi.org/10.1088/1757-899X/722/1/012012
+* Romero, C., Ventura, S., & García, E. (2008). Data mining in course management systems: Moodle case study and tutorial. Computers & Education, 51(1), 368-384. https://doi.org/10.1016/j.compedu.2007.05.016
 * W.L. Myers and G.P. Patil, Multivariate Methods of Representing Relations 13
 in R for Prioritization Purposes, Environmental and Ecological Statistics 6,
 DOI 10.1007/978-1-4614-3122-0_2, © Springer Science+Business Media, LLC 2012
+* Wierzchoń, S., & Kłopotek, M. (2018). Modern Algorithms of Cluster Analysis (Vol. 34). Springer International Publishing. https://doi.org/10.1007/978-3-319-69308-8
